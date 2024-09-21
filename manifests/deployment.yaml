@@ -4,7 +4,7 @@ metadata:
   name: my-tasky-app
   namespace: tasky-namespace
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: tasky
