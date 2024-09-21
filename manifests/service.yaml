@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-tasky-service
+  namespace: tasky-namespace
+spec:
+  type: LoadBalancer  # This creates an AWS ELB (Elastic Load Balancer) for public access
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: tasky
