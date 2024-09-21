@@ -6,7 +6,7 @@ on:
 
 env:
   AWS_REGION: eu-west-1
-  ECR_REGISTRY: 772935232126.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com
+  ECR_REGISTRY: 772935232126.dkr.ecr.eu-west-1.amazonaws.com
   IMAGE_NAME: tasky
 
 jobs:
