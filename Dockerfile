@@ -13,7 +13,8 @@ WORKDIR /app
 COPY --from=build  /go/src/tasky/tasky .
 COPY --from=build  /go/src/tasky/assets ./assets
 COPY wizexercise.txt /app/wizexercise.txt
-ENV MONGODB_URI=mongodb://robot-user:robot-password@10.0.101.83:27017/?authSource=admin
+ARG MONGO_CONNECTION_STRING
+ENV MONGODB_URI=${MONGO_CONNECTION_STRING}
 ENV SECRET_KEY=secret123
 EXPOSE 8080
 ENTRYPOINT ["/app/tasky"]

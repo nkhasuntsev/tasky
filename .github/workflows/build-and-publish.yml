@@ -32,6 +32,11 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           role-session-name: GitHub_to_AWS_via_FederatedOIDC_ECR
           aws-region: ${{ env.AWS_REGION }}
+      - name: Retrieve MongoDB Connection String from Secrets Manager
+      id: get_secret
+      run: |
+        mongo_connection_string=$(aws secretsmanager get-secret-value --secret-id mongo_connection_string --query SecretString --output text)
+        echo "MONGO_CONNECTION_STRING=$mongo_connection_string" >> $GITHUB_ENV
 
       - name: Log in to Amazon ECR
         id: login-ecr
@@ -39,7 +44,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ env.IMAGE_NAME }} .
+          docker build --build-arg MONGO_CONNECTION_STRING=${{ env.MONGO_CONNECTION_STRING }} -t ${{ env.IMAGE_NAME }} .
           docker tag ${{ env.IMAGE_NAME }}:latest ${{ env.ECR_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
       - name: Push Docker image to Amazon ECR
