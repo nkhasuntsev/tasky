@@ -13,6 +13,7 @@ spec:
       labels:
         app: tasky
     spec:
+      serviceAccountName: tasky-app-sa
       containers:
       - name: tasky-container
         image: 772935232126.dkr.ecr.eu-west-1.amazonaws.com/tasky:latest
