@@ -10,9 +10,11 @@ metadata:
 spec:
   type: LoadBalancer  # This creates an AWS ELB (Elastic Load Balancer) for public access
   ports:
-  - port: 80
+  - name: http
+    port: 80
     targetPort: 8080
-  - port: 443
+  - name: https
+    port: 443
     targetPort: 8080  # Assuming your app is still serving on port 8080
     protocol: TCP
   selector:
