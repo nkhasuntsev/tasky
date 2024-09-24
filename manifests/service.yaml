@@ -3,10 +3,17 @@ kind: Service
 metadata:
   name: my-tasky-service
   namespace: tasky-namespace
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:eu-west-1:772935232126:certificate/fd325ac1-9d36-4631-8557-35ae112282d7
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
 spec:
   type: LoadBalancer  # This creates an AWS ELB (Elastic Load Balancer) for public access
   ports:
   - port: 80
     targetPort: 8080
+  - port: 443
+    targetPort: 8080  # Assuming your app is still serving on port 8080
+    protocol: TCP
   selector:
     app: tasky
